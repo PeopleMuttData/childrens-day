@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¡Guess the Mutter Age! 🎈 Día de las Infancias</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- PANTALLA 0: LOGIN -->
+  <section id="screen-login" class="screen active">
+    <div class="card">
+      <img src="assets/muttito.png" alt="Muttito" class="mascota">
+      <h1>¿Hace cuánto que trabaja acá?</h1>
+      <p class="subtitle">Juego del Día de las Infancias</p>
+      <p class="explicacion">
+        Iniciá sesión con tu cuenta de Google de la empresa para jugar y aparecer en el ranking.
+      </p>
+      <button id="btn-login" class="btn-primario">Iniciar sesión con Google 🔐</button>
+      <p id="login-error" class="login-error"></p>
+    </div>
+  </section>
+
+  <!-- PANTALLA YA JUGASTE -->
+  <section id="screen-ya-jugaste" class="screen">
+    <div class="card">
+      <div class="emoji-header">🙌</div>
+      <h2>¡Ya jugaste!</h2>
+      <p class="explicacion">Tu puntaje en el ranking oficial es:</p>
+      <p class="puntaje-final"><span id="ya-jugaste-puntos">0</span> puntos</p>
+      <p class="explicacion">Podés volver a jugar por diversión, pero no va a modificar tu puntaje en el ranking.</p>
+      <button id="btn-jugar-de-nuevo-fun" class="btn-primario">Jugar de nuevo (no cuenta) 🎮</button>
+      <button id="btn-ver-ranking-yj" class="btn-secundario">Ver ranking 📊</button>
+    </div>
+  </section>
+
+  <!-- PANTALLA 1: INICIO -->
+  <section id="screen-inicio" class="screen">
+    <div class="card">
+      <h1>¡GUESS THE MUTTER AGE!</h1>
+      <img src="assets/muttito.png" alt="Muttito" class="mascota">
+      <p class="subtitle">¡Celebremos el Día de las Infancias!</p>
+      <p class="explicacion">¿Qué tan bien conocés a los Mutters? 👀 Vas a ver la foto de un Mutter y tenés que adivinar cuántos Mutt años tiene.</p>
+      <p class="explicacion">SPOILER! Después viene lo mejor: descubrí cómo se vería si su antigüedad fuese su edad. 👶</p>
+      <p class="explicacion">🎯 Cuanto más cerca estés, más puntos ganás.</p>
+      <ul class="reglas">
+        <li>🏆 Antigüedad exacta: <b>100 puntos</b></li>
+        <li>🔥 Hasta 3 meses de diferencia: <b>75 puntos</b></li>
+        <li>😎 Más de 3 y hasta 6 meses: <b>50 puntos</b></li>
+        <li>🙂 Más de 6 y hasta 12 meses: <b>20 puntos</b></li>
+        <li>💀 Más de 12 meses: <b>0 puntos</b></li>
+      </ul>
+      <button id="btn-empezar" class="btn-primario">🚀 ¡Quiero jugar!</button>
+    </div>
+  </section>
+
+  <!-- PANTALLA 2: RONDA (adivinar) -->
+  <section id="screen-ronda" class="screen">
+    <div class="card">
+      <p class="ronda-contador">Ronda <span id="ronda-actual">1</span> de <span id="ronda-total">3</span></p>
+      <div id="timer" class="timer">⏱️ <span id="timer-segundos">10</span>s</div>
+      <h2 class="pregunta-grande">¿CUÁNTOS MUTT AÑOS TIENE? 🤔</h2>
+      <div class="foto-marco">
+        <img id="foto-real" src="" alt="Foto del Mutter">
+      </div>
+      <h3 id="ronda-nombre"></h3>
+      <p id="ronda-puesto" class="rev-detalle"></p>
+
+      <div class="selectores">
+        <div class="selector-grupo">
+          <label for="select-anios">Años</label>
+          <select id="select-anios"></select>
+        </div>
+        <div class="selector-grupo">
+          <label for="select-meses">Meses</label>
+          <select id="select-meses"></select>
+        </div>
+      </div>
+
+      <button id="btn-confirmar" class="btn-primario">Confirmar respuesta ✅</button>
+    </div>
+  </section>
+
+  <!-- PANTALLA 3: REVELACIÓN -->
+  <section id="screen-revelacion" class="screen">
+    <div class="card">
+      <h2 id="revelacion-titulo">👶 SI SU ANTIGÜEDAD FUESE SU EDAD…</h2>
+      <div class="foto-marco foto-marco-reveal foto-marco-grande">
+        <img id="foto-nino-rev" src="" alt="Foto niño">
+      </div>
+      <h3 id="rev-nombre"></h3>
+      <p class="rev-asi-se-veria">Así se vería con <b id="rev-edad-equivalente"></b></p>
+
+      <div class="resultado-ronda">
+        <p class="rev-antiguedad">Antigüedad real: <b id="rev-antiguedad-real"></b></p>
+        <p class="rev-tu-respuesta">Tu respuesta: <span id="rev-tu-respuesta"></span></p>
+        <p class="rev-diferencia">Diferencia: <span id="rev-diferencia"></span></p>
+      </div>
+
+      <p class="rev-puntos">🎯 +<span id="rev-puntos">0</span> puntos</p>
+      <p id="rev-comentario" class="rev-comentario"></p>
+      <button id="btn-siguiente" class="btn-primario">➡️ Siguiente Mutter</button>
+    </div>
+  </section>
+
+  <!-- PANTALLA 4: FINAL -->
+  <section id="screen-final" class="screen">
+    <div class="card">
+      <div class="emoji-header">🎉</div>
+      <h2>¡TERMINASTE!</h2>
+      <p class="puntaje-final">Tu puntaje: <span id="puntaje-total">0</span> puntos</p>
+      <p class="puntaje-maximo">Puntaje máximo: <span id="puntaje-maximo">1.000</span> puntos</p>
+      <p id="final-categoria" class="final-categoria"></p>
+      <p id="final-mensaje-categoria" class="explicacion"></p>
+
+      <div class="resumen-final">
+        <p><span id="resumen-cantidad">0</span> Mutters descubiertos</p>
+        <p>🎯 <span id="resumen-exactas">0</span> respuestas exactas</p>
+        <p>📏 <span id="resumen-meses-diff">0</span> meses de diferencia acumulada</p>
+      </div>
+
+      <p id="final-nota" class="explicacion"></p>
+      <button id="btn-guardar" class="btn-primario">🏆 Ver ranking</button>
+      <button id="btn-jugar-de-nuevo-final" class="btn-secundario">🔁 Jugar de nuevo</button>
+    </div>
+  </section>
+
+  <!-- PANTALLA 5: RANKING -->
+  <section id="screen-ranking" class="screen">
+    <div class="card">
+      <div class="emoji-header">📊🥇</div>
+      <h2>Tabla de posiciones</h2>
+      <ol id="lista-ranking" class="ranking-lista"></ol>
+      <button id="btn-jugar-de-nuevo" class="btn-secundario">Jugar de nuevo 🔁</button>
+    </div>
+  </section>
+
+  <img src="assets/muttdata_logo.png" alt="Muttdata" class="marca-footer">
+</div>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>
